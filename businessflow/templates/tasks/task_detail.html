@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="{% url 'core-task-list' %}">Tasks</a></li>
+    <li class="active">{{task.code}}</li>
+</ul>
+{% endblock %}
+
+{% block main_content %}
+
+{% block actions %}
+    <form action="." class="form-horizontal" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <!-- APPROVAL MODAL -->
+        {% if not task.is_closed %}
+            {% include "widgets/approval_modal.html" %}
+        {% endif %}
+    </form>  
+{% endblock %}
+
+<hr/>
+
+<div class="container">
+    <h3>{{task.code}}</h3>
+    
+    <table class="table table-bordered table-condensed">
+        <thead>
+            <tr>
+                <th>Field</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            <tr>
+                <td>Name</td>
+                <td>{{task.name}}</td>
+
+            </tr>
+            <tr>
+                <td>Activity Object</td>
+                <td><a href="{{task.content_object.get_absolute_url}}">{{task.content_object.code}}</a></td>
+            </tr>
+            <tr>
+                <td>Activity</td>
+                <td>{{task.content_type.model}}</td>
+            </tr>
+            <tr>
+                <td>Assigned to</td>
+                <td>{{task.assigned_to}}</td>
+            </tr>
+            <tr>
+                <td>Closed</td>
+                <td>{{task.is_closed|yesno:'YES, NO'}}</td>
+            </tr>
+            <tr>
+                <td>Status</td>
+                <td><span class="label label-success">{{task.approval.get_status_display}}</span></td>
+            </tr>
+            <tr>
+                <td>Approval By</td>
+                <td>{{task.approval.approval_by}}</td>
+            </tr>
+            <tr>
+                <td>Approval On</td>
+                <td>{{task.approval.approval_on}}</td>
+            </tr>
+            <tr>
+                <td>Comments</td>
+                <td>{{task.approval.comments|safe|linebreaks}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

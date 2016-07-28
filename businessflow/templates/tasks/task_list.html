@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load render_table from django_tables2 %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li class="active">Tasks</li>
+</ul>
+{% endblock %}
+
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="/static/css/django_tables2.css">
+{% endblock %}
+
+{% block main_content %}
+
+{% block actions %}
+    <a class="btn btn-primary" href="{% url 'businessflow-task-list' %}?status=completed"><i class="icon-plus-sign"></i>Completed Tasks</a>
+{% endblock %}
+
+<div class="container">
+    <h3>Tasks</h3>
+{% comment %}
+    <form class="form-inline pull-right" role="form" action="." method="GET">
+        <div class="form-group">
+            <input type="text" class="form-control" name="search" placeholder="Search">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+    <br/>
+    <br/>
+{% endcomment %}
+
+    {% render_table tasks_table "widgets/tables2/tables.html" %}
+</div>
+{% endblock %}

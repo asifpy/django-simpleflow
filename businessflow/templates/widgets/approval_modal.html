@@ -1,0 +1,30 @@
+{% load tags %}
+
+<a class="btn btn-primary" data-toggle="modal" data-target="#approval">Task Approval</a>
+
+<div id="approval" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Task Approval</h4>
+            </div>
+            <div class="modal-body">
+                {% for field in approval_form %}
+					<fieldset class={% if field.errors %} "form-group has-error" {% else %} "form-group" {% endif %} >
+						{{ field|label_with_class:"col-sm-2 control-label" }}
+						<div class="col-xs-4">
+							{{ field|input_with_class:"form-control" }}
+			    			{{ field.errors }}
+						</div>
+					</fieldset>
+				{% endfor %}
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                <button type="submit" class="btn btn-success" >Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
