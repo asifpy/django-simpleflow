@@ -53,7 +53,7 @@ class TaskDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(
             TaskDetailView, self).get_context_data(**kwargs)
-        context['approval_form'] = self.get_approval_form
+        context['approval_form'] = self.task.get_approval_form
         return context
 
     @property
@@ -62,12 +62,11 @@ class TaskDetailView(LoginRequiredMixin, DetailView):
 
     @transaction.atomic
     def post(self, request, *args, **kwargs):
-        form = self.get_approval_form(request.POST)
+        form = self.task.get_approval_form(request.POST)
 
         if form.is_valid():
             self.task.submit(
-                form.cleaned_data['status'],
-                form.cleaned_data['remarks'],
+                form,
                 request.user
             )
 

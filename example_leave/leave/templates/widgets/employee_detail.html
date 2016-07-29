@@ -1,0 +1,15 @@
+<table class="table table-bordered table-condensed">
+    <tbody>
+        <tr>
+            <td><strong>Empoyee ID</strong> : {{employee.employee_number}}</td>
+            <td><strong>Name</strong> : {{employee.name}}</td>
+            <td><strong>Nationality</strong> : {{employee.nationality}}</td>
+        </tr>
+        <tr>
+            <td><strong>Manager ID</strong> : {{employee.reports_to.employee_number}}</td>
+            <td><strong>Manager Name</strong> : {{employee.reports_to.name}}</td>
+            <td><strong>Manager Email</strong> : {{employee.reports_to.email}}</td>
+        </tr>
+        <tr>
+    </tbody>
+</table>

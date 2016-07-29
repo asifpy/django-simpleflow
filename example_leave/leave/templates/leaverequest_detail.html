@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="{% url 'leave-request-list' %}">Leave Requests</a></li>
+    <li class="active">LVREQ - {{leaverequest.id}}</li>
+</ul>
+{% endblock %}
+
+{% block main_content %}
+
+{% block actions %}
+    <form action="." class="form-horizontal" method="POST" enctype="multipart/form-data">
+        
+        <!-- SUBMIT TO MANAGER MODAL -->
+        {% if leaverequest.employee.id == user.profile.employee.id and leaverequest.status == 'created' %}
+            {% include "widgets/submit_for_approval_modal.html" %}
+        {% endif %}
+    
+    </form>  
+{% endblock %}
+
+<hr/>
+
+<div class="container">
+    <h3>LVREQ - {{leaverequest.id}}</h3>
+    
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#details" data-toggle="tab">Details</a></li>
+        <li><a href="#history" data-toggle="tab">History</a></li>
+    </ul>
+    
+    <div class="tab-content">
+        <div class="tab-pane active" id="details">
+            <table class="table table-bordered table-condensed">
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    <tr>
+                        <td>Employee Name</td>
+                        <td>{{leaverequest.employee.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>Badge ID</td>
+                        <td>{{leaverequest.employee.employee_number}}</td>
+                    </tr>
+                    <tr>
+                        <td>Manager</td>
+                        <td>{{leaverequest.employee.reports_to.name}} - {{leaverequest.employee.reports_to.employee_number}}</td>
+                    </tr>
+                    <tr>
+                        <td>Nationality</td>
+                        <td>{{leaverequest.employee.nationality}}</td>
+                    </tr>
+                    <tr>
+                        <td>Position</td>
+                        <td>{{leaverequest.employee.position_name}}</td>
+                    </tr>
+                    <tr>
+                        <td>Leave From</td>
+                        <td>{{leaverequest.leave_from}}</td>
+                    </tr>
+                    <tr>
+                        <td>Leave To</td>
+                        <td>{{leaverequest.leave_to}}</td>
+                    </tr>
+                    <tr>
+                        <td>Leave Type</td>
+                        <td>{{leaverequest.get_leave_type_display}}</td>
+                    </tr>
+                    <tr>
+                        <td>Payment Settled</td>
+                        <td>{{leaverequest.payment_settled|yesno:'Yes, No'}}</td>
+                    </tr>
+                    <tr>
+                        <td>Iqama Submitted</td>
+                        <td>{{leaverequest.iqama_submitted|yesno:'Yes, No'}}</td>
+                    </tr>
+                    <tr>
+                        <td>Reason</td>
+                        <td>{{leaverequest.reason}}</td>
+                    </tr>
+                    <tr>
+                        <td>Status</td>
+                        <td><span class="label label-success">{{leaverequest.get_status_display}}</span></td>
+                    </tr>
+                    <tr>
+                        <td>Created By</td>
+                        <td>{{leaverequest.created_by}}</td>
+                    </tr>
+                    <tr>
+                        <td>Created At</td>
+                        <td>{{leaverequest.created_on}}</td>
+                    </tr>
+                    
+                    {% if leaverequest.approval_by %}
+                        <tr>
+                            <td>Approval By</td>
+                            <td>{{leaverequest.approval_by}}</td>
+                        </tr>
+                        <tr>
+                            <td>Approval On</td>
+                            <td>{{leaverequest.approval_on}}</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Manager Comments</td>
+                            <td>{{leaverequest.manager_comments|safe|linebreaks}}</td>
+                        </tr>
+                        
+                    {% endif %}
+                    
+                    
+                </tbody>
+            </table>
+        </div>
+
+        <div class="tab-pane" id="history">
+            <table class="table table-bordered table-condensed">
+                <thead>
+                    <tr>
+                        <th>Status</td>
+                        <th>Created By</th>
+                        <th>Created On</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for history in leaverequest.history.all %}
+                        <tr>
+                            <td><span class="label label-success">{{history.get_status_display}}</span></td>
+                            <td>{{history.created_by.profile.employee.name}}</td>
+                            <td>{{history.created_on}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    
+    
+</div>
+{% endblock %}

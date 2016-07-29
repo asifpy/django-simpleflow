@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load render_table from django_tables2 %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li class="active">Leave Requests</li>
+</ul>
+{% endblock %}
+
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="/static/css/django_tables2.css">
+{% endblock %}
+
+{% block main_content %}
+{% block actions %}
+    <a class="btn btn-primary" href="{% url 'leave-request-create' %}"><i class="icon-plus-sign"></i> Create Leave Request </a>
+    <a class="btn btn-primary" href="{% url 'businessflow-task-list' %}"><i class="icon-plus-sign"></i>Task Inbox</a>
+{% endblock %}
+<hr/>
+
+<div class="container">
+
+    <h3>Employee Details</h3>
+    <!-- EMPLOYEE DETAIL TABLE -->
+    {% include "widgets/employee_detail.html" with employee=user.profile.employee %}
+    <hr/>
+
+
+    <h4>Leave Requests</h4>
+{% comment %}
+    <form class="form-inline pull-right" role="form" action="." method="GET">
+        <div class="form-group">
+            <input type="text" class="form-control" name="search" placeholder="Search">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+    <br/>
+    <br/>
+{% endcomment %}
+
+    {% render_table leaverequest_table "widgets/tables2/tables.html" %}
+</div>
+{% endblock %}

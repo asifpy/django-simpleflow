@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load businessflow_tags %}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="{% url 'leave-request-list' %}">Leave Requests</a></li>
+    <li class="active">Create Leave Request</li>
+</ul>
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-datetimepicker.min.css">
+{% endblock %}
+
+{% block js %}
+    <script src="/static/js/moment.js"></script>
+    <script src="/static/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $('#id_leave_from, #id_leave_to, #id_flight_date').datetimepicker({
+                format: 'YYYY-MM-DD hh:mm'
+           });
+        });
+    </script>
+{% endblock %}
+
+{% block main_content %}
+<div class="container">
+
+    <h3>Employee Details</h3>
+    <!-- EMPLOYEE DETAIL TABLE -->
+    {% include "widgets/employee_detail.html" with employee=user.profile.employee %}
+    <hr/>
+
+    <h3>Create Leave Request</h3>
+    <hr/>
+    
+    <form action="." class="form-horizontal" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+            <fieldset class={% if field.errors %} "form-group has-error" {% else %} "form-group" {% endif %} >
+                {{ field|label_with_class:"col-sm-2 control-label" }}
+                <div class="col-xs-4">
+                    {{ field|input_with_class:"form-control" }}
+                    {{ field.errors }}
+                </div>
+            </fieldset>
+        {% endfor %}
+        <button type="submit" class="btn btn-success" >Submit</button>
+    </form>
+</div>
+{% endblock %}

@@ -6,6 +6,8 @@ from django.contrib.contenttypes.fields import(
     GenericRelation
 )
 
+from businessflow.forms import ApprovalForm
+
 
 class Task(models.Model):
     name = models.CharField(max_length=100, blank=True)
@@ -33,13 +35,16 @@ class Task(models.Model):
 
     @property
     def get_approval_form(self):
-        return self.state['form']
+        return self.state.get('form', None) or ApprovalForm
 
     @property
     def next_transition(self):
         return self.state.get('next_transition', None)
 
-    def submit(self, status, comments, user):
+    def submit(self, form, user):
+        status = form.cleaned_data['status']
+        comments = form.cleaned_data['remarks']
+
         self.is_closed = True
         self.save()
 
@@ -51,7 +56,7 @@ class Task(models.Model):
         )
 
         # execute content object task action
-        self.execute_task_actions()
+        self.execute_task_actions(form)
 
         if self.next_transition:
             new_state = self.process_config[self.next_transition]
@@ -68,11 +73,10 @@ class Task(models.Model):
             object_id=self.content_object.id
         )
 
-    def execute_task_actions(self):
-        if hasattr(self.content_object, 'task_actions'):
-            task_actions = self.content_object.task_actions[self.slug]
-            for action in task_actions:
-                action(self, self.content_object)
+    def execute_task_actions(self, form):
+        task_actions = self.state['on_completion']
+        for action in task_actions:
+            action(form, self.content_object)
 
 
 class Approval(models.Model):
@@ -97,14 +101,15 @@ class BusinessFlow(models.Model):
     class Meta:
         abstract = True
 
-    def initiate(self, initial_state):
-        state = self.PROCESS[initial_state]
+    def start_businessflow(self, initial_state=None):
+        initial = initial_state or 'initial'
+        state = self.PROCESS[initial]
         group = Group.objects.get(name=state['group'])
         content_type = ContentType.objects.get_for_model(self)
 
         Task.objects.create(
             name=state['name'],
-            slug=state,
+            slug=initial,
             assigned_to=group,
             content_type=content_type,
             object_id=self.id

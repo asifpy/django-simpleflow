@@ -14,7 +14,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+PRJ_DIR = os.path.join(BASE_DIR, 'example_leave')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -40,11 +40,11 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'django_tables2',
+    'businessflow',
 
-    'example_leave',
-
-    'businessflow'
+    'leave',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -63,7 +63,7 @@ ROOT_URLCONF = 'example_leave.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(PRJ_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -112,4 +112,9 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
 
+STATICFILES_DIRS = [
+    os.path.join(PRJ_DIR, "static")
+]
 STATIC_URL = '/static/'
+
+LOGIN_REDIRECT_URL = '/leave/requests/'

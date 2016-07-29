@@ -9,7 +9,7 @@ class TaskTable(tables.Table):
         template_name='widgets/tables2/task_process.html',
         verbose_name="Process"
     )
-    code = tables.LinkColumn('core-task-detail', args=[A('pk')])
+    code = tables.LinkColumn('businessflow-task-detail', args=[A('pk')])
 
     class Meta:
         model = Task

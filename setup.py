@@ -16,7 +16,7 @@ setup(
     include_package_data=True,
     license='BSD License',
     description='A simple Django workflow package for business process',
-    url='https://github.com/asifpy/django-crudbuilder/archive/master.tar.gz',
+    url='https://github.com/asifpy/django-businessflow/archive/master.tar.gz',
     author='Asif Jamadar',
     author_email='saluasif@gmail.com',
     long_description=read('README.rst'),

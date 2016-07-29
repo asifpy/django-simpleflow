@@ -1,0 +1,20 @@
+<a class="btn btn-primary" data-toggle="modal" data-target="#manager_submit">Submit for Approval</a>
+
+<div id="manager_submit" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Submit to Manager</h4>
+            </div>
+            <div class="modal-body">
+                <p>You can't update the leave request if once it's been submitted to manager.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="{% url 'leave-request-approval-submit' leaverequest.id %}" class="btn btn-primary">Submit</a>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
