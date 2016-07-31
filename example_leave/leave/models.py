@@ -83,7 +83,7 @@ class LeaveRequest(SimpleFlow):
         self.status = "submitted_for_approval"
         self.save()
 
-        # start business flow
+        # start simpleflow
         # this will create task for initial state which
         # you defined in your PROCESS config
         self.start_simpleflow()
