@@ -1,0 +1,7 @@
+[paths]
+source = businessflow
+
+[run]
+branch = True
+omit =
+*/migrations/*

@@ -1,0 +1,6 @@
+include LICENSE.txt
+include README.rst
+recursive-include businessflow/templates *
+recursive-include businessflow/static *
+recursive-include businessflow/templatetags *
+recursive-include docs *
