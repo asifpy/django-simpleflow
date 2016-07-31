@@ -1,6 +1,6 @@
 import os
 from setuptools import setup
-import businessflow
+import simpleflow
 
 # Allow setup.py to be run from any path
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
@@ -10,13 +10,13 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(
-    name='django-businessflow',
-    version=businessflow.VERSION,
-    packages=['businessflow'],
+    name='django-simpleflow',
+    version=simpleflow.VERSION,
+    packages=['simpleflow'],
     include_package_data=True,
     license='BSD License',
     description='A simple Django workflow package for business process',
-    url='https://github.com/asifpy/django-businessflow/archive/master.tar.gz',
+    url='https://github.com/asifpy/django-simpleflow/archive/master.tar.gz',
     author='Asif Jamadar',
     author_email='saluasif@gmail.com',
     long_description=read('README.rst'),

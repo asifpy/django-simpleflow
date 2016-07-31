@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-from businessflow.models import BusinessFlow
+from simpleflow.models import SimpleFlow
 from leave import process
 
 
@@ -28,7 +28,7 @@ class UserProfile(models.Model):
         return self.user.groups.all().values_list('name', flat=True)
 
 
-class LeaveRequest(BusinessFlow):
+class LeaveRequest(SimpleFlow):
     # assign your process here
     PROCESS = process.PROCESS
 
@@ -86,4 +86,4 @@ class LeaveRequest(BusinessFlow):
         # start business flow
         # this will create task for initial state which
         # you defined in your PROCESS config
-        self.start_businessflow()
+        self.start_simpleflow()

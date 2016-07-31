@@ -20,7 +20,7 @@ install:
   - travis_retry pip install coveralls six
 
 script:
-  - coverage run --source businessflow runtests.py -v 2
+  - coverage run --source simpleflow runtests.py -v 2
 
 notifications:
   email: false

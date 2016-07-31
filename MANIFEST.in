@@ -1,6 +1,7 @@
 include LICENSE.txt
 include README.rst
-recursive-include businessflow/templates *
-recursive-include businessflow/static *
-recursive-include businessflow/templatetags *
+recursive-include simpleflow/templates *
+recursive-include simpleflow/migrations *
+recursive-include simpleflow/static *
+recursive-include simpleflow/templatetags *
 recursive-include docs *

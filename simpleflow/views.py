@@ -9,8 +9,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django_tables2 import SingleTableView
 
-from businessflow.models import Task
-from businessflow.tables import TaskTable
+from simpleflow.models import Task
+from simpleflow.tables import TaskTable
 
 
 class TaskListView(LoginRequiredMixin, SingleTableView):
@@ -77,5 +77,5 @@ class TaskDetailView(LoginRequiredMixin, DetailView):
             messages.error(self.request, msg)
 
         return HttpResponseRedirect(
-            reverse('businessflow-task-detail',
+            reverse('simpleflow-task-detail',
                     args=[self.task.id]))

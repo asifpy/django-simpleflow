@@ -1,7 +1,7 @@
 import django_tables2 as tables
 from django_tables2.utils import A
 
-from businessflow.models import Task
+from simpleflow.models import Task
 
 
 class TaskTable(tables.Table):
@@ -9,7 +9,7 @@ class TaskTable(tables.Table):
         template_name='widgets/tables2/task_process.html',
         verbose_name="Process"
     )
-    code = tables.LinkColumn('businessflow-task-detail', args=[A('pk')])
+    code = tables.LinkColumn('simpleflow-task-detail', args=[A('pk')])
 
     class Meta:
         model = Task

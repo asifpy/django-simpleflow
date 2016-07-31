@@ -42,7 +42,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'django_tables2',
-    'businessflow',
+    'simpleflow',
 
     'leave',
 )

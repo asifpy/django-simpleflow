@@ -1,5 +1,5 @@
 from django import forms
-from businessflow.forms import ApprovalForm
+from simpleflow.forms import ApprovalForm
 
 from leave.handlers import(
     update_leaverequest_after_hr_approval,

@@ -9,5 +9,5 @@ urlpatterns = [
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^auth/', include('django.contrib.auth.urls')),
-    url(r'^businessflow/', include('businessflow.urls')),
+    url(r'^simpleflow/', include('simpleflow.urls')),
 ]

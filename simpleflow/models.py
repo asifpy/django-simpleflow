@@ -6,7 +6,7 @@ from django.contrib.contenttypes.fields import(
     GenericRelation
 )
 
-from businessflow.forms import ApprovalForm
+from simpleflow.forms import ApprovalForm
 
 
 class Task(models.Model):
@@ -95,13 +95,13 @@ class Approval(models.Model):
     ])
 
 
-class BusinessFlow(models.Model):
+class SimpleFlow(models.Model):
     tasks = GenericRelation(Task)
 
     class Meta:
         abstract = True
 
-    def start_businessflow(self, initial_state=None):
+    def start_simpleflow(self, initial_state=None):
         initial = initial_state or 'initial'
         state = self.PROCESS[initial]
         group = Group.objects.get(name=state['group'])
