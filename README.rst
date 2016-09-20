@@ -1,5 +1,5 @@
 ===================
-django-businessflow
+django-simpleflow
 ===================
 
 
@@ -41,7 +41,7 @@ Usage
         	'on_completion': [update_leaverequest_after_manager_approval],
         	'group': 'Manager',
         	'next_transition': 'hr_approver'
-        	# if 'form' is not defined, then busineesflow
+        	# if 'form' is not defined, then simpleflow
         	# will use default ApprovalForm
     	},
     	'hr_approver': {
